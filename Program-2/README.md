@@ -14,12 +14,14 @@ and streamline the build and deployment process.
 - `src/index.js` — Express app returning "Hello from multi-stage Docker!"
 
 ## Steps
-1. `npm install`
-2. `docker build -t program-2 .`
-3. `docker run -d -p 3000:3000 --name node-container program-2`
-4. Open `http://localhost:3000` → "Hello from multi-stage Docker!"
-5. `docker container stop node-container`
-6. `docker container rm node-container`
+1. `npm init -y`
+2. `nano package.json` → add scripts + express dependency
+3. `npm install express`
+4. `docker build -t program-2 .`
+5. `docker run -d -p 3000:3000 --name node-container program-2`
+6. Open `http://localhost:3000` → "Hello from multi-stage Docker!"
+7. `docker container stop node-container`
+8. `docker container rm node-container`   
 
 ## Key Concepts
 - Multi-stage build: builder stage (compile/install) → production stage (run only)
