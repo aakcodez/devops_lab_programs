@@ -1,26 +1,20 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: python-pod
   labels:
-    app: python
+    run: python-pod
+  name: python-pod
 spec:
   containers:
-  - name: python-container
+  - command:
+    - python
+    - -u
+    - -c
+    - import time; print('Welcome to Kubernetes'); print('Python Pod is running');
+      time.sleep(3600)
     image: python:3.12-slim
-    command: ["python", "-u", "-c"]
-    args:
-      - |
-        import time
-
-        print("Welcome to Kubernetes!")
-        print("Python Pod is running successfully.")
-
-        for i in range(1, 6):
-            print("Python Execution:", i)
-            time.sleep(5)
-
-        print("Python program execution completed.")
-        print("Container is waiting...")
-
-        time.sleep(3600)
+    name: python-pod
+    resources: {}
+  dnsPolicy: ClusterFirst
+  restartPolicy: Never
+status: {}
