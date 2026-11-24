@@ -42,6 +42,17 @@ minikube delete
 minikube start --driver=docker
 
 Step 5: Create a Deployment File (nginx-deployment.yaml)
+Method A: Quick Generator Command (Dry-Run)
+Bash
+
+kubectl create deployment nginx-deployment \
+  --image=nginx:latest \
+  --replicas=2 \
+  --port=80 \
+  --dry-run=client -o yaml \
+  > nginx-deployment.yaml
+
+Method B: Manual YAML File (nginx-deployment.yaml)
 YAML
 apiVersion: apps/v1
 kind: Deployment
@@ -73,10 +84,22 @@ kubectl get deployments
 kubectl get pods
 
 Step 8: Expose the Deployment as a Service
+Method A: Direct Expose Command
 Bash
 kubectl expose deployment nginx-deployment \
   --type=NodePort \
   --port=80
+
+Method B: Generate nginx-service.yaml via Dry-Run (Optional)
+Bash
+
+kubectl expose deployment nginx-deployment \
+  --type=NodePort \
+  --port=80 \
+  --dry-run=client -o yaml \
+  > nginx-service.yaml
+
+kubectl apply -f nginx-service.yaml
 
 Step 9: Check Service
 Bash
